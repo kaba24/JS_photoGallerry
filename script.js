@@ -1,27 +1,25 @@
-// Get modal elements
+// Get modal element and modal image
 const modal = document.getElementById("modal");
-const modalImage = document.getElementById("modalImage");
-const closeButton = document.getElementById("close");
+const modalImg = document.getElementById("modal-img");
 
-// Get all gallery images
-const galleryItems = document.querySelectorAll(".gallery-item");
+// Get all thumbnails
+const items = document.querySelectorAll(".class-item");
 
-// Add click event to each image
-galleryItems.forEach(item => {
-    item.addEventListener("click", () => {
-        modal.style.display = "block";            // Show the modal
-        modalImage.src = item.src;                // Set the source of the modal image
+// Loop through thumbnails and add click event
+items.forEach(item => {
+    item.addEventListener("click", function() {
+        modalImg.src = this.getAttribute("data-full");
+        modal.classList.add("show"); // Add show class to trigger animation
     });
 });
 
-// Close the modal when the close button is clicked
-closeButton.addEventListener("click", () => {
-    modal.style.display = "none";                // Hide the modal
-});
-
-// Close the modal when clicking outside the modal image
-modal.addEventListener("click", (event) => {
+// Close the modal when clicking outside of the image
+modal.addEventListener("click", function(event) {
     if (event.target === modal) {
-        modal.style.display = "none";            // Hide the modal
+        modal.classList.remove("show"); // Remove show class to trigger exit animation
+        // Optionally, you can also reset the image source here if needed
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal after the animation
+        }, 500); // Match with the CSS transition duration
     }
 });
